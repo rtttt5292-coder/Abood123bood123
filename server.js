@@ -17,12 +17,24 @@ import express from 'express';
 import cors from 'cors';
 import { Innertube, UniversalCache } from 'youtubei.js';
 import { randomUUID } from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// ------------------------------------------------------------------------
+// خدمة الواجهة الأمامية (index.html) عند الصفحة الرئيسية
+// بهذا يعمل رابط Railway نفسه كموقع كامل (واجهة + API) بدون استضافة منفصلة
+// ------------------------------------------------------------------------
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // ------------------------------------------------------------------------
 // تهيئة Innertube مرة واحدة عند تشغيل السيرفر (يُعاد استخدامها لكل الطلبات)
