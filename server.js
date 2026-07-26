@@ -32,6 +32,11 @@ let youtube;
   youtube = await Innertube.create({
     cache: new UniversalCache(false), // بدون تخزين مؤقت على القرص (بسيط للتجربة)
     generate_session_locally: true
+    // ملاحظة: إذا استمر ظهور "Failed to extract signature decipher algorithm"
+    // بعد تحديث الحزمة لآخر إصدار، جرّب إضافة player_id معروف هنا، مثل:
+    // player_id: '2b83d2e0'
+    // هذا حل مؤقت غير مضمون - راجع:
+    // https://github.com/LuanRT/YouTube.js/issues/1043
   });
   console.log('✅ Innertube جاهز - السيرفر يستمع على المنفذ', PORT);
 })();
